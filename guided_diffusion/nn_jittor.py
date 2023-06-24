@@ -87,7 +87,7 @@ def mean_flat(tensor: jt.Var):
     """
     Take the mean over all non-batch dimensions.
     """
-    return tensor.mean(dim=tuple(range(1, len(tensor.shape))))
+    return tensor.mean(dims=tuple(range(1, len(tensor.shape))))
 
 
 def normalization(channels):
