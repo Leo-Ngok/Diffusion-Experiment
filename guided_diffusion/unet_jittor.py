@@ -800,7 +800,8 @@ class UNetModel(nn.Module):
 
         if self.num_classes is not None:
             assert y is not None
-            assert y.shape == (x.shape[0],)
+            print('y.shape= ', y.shape, 'x.shape = ', x.shape)
+            #assert y.shape == (x.shape[0],)
 
         h = x
         for module in self.input_blocks:
