@@ -222,9 +222,9 @@ class MixedPrecisionTrainer:
         param_norm = 0.0
         for p in self.master_params:
             with jt.no_grad():
-                param_norm += jt.norm(p, p=2, dtype=jt.float32).item() ** 2
+                param_norm += jt.norm(p, p=2).item() ** 2
                 if p.grad is not None:
-                    grad_norm += jt.norm(p.grad, p=2, dtype=jt.float32).item() ** 2
+                    grad_norm += jt.norm(p.grad, p=2).item() ** 2
         return np.sqrt(grad_norm) / grad_scale, np.sqrt(param_norm)
 
     def master_params_to_state_dict(self, master_params):
