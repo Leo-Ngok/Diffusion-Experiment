@@ -133,11 +133,11 @@ def zero_master_grads(master_params):
 def zero_grad(model_params, optimizer:jt.optim.Optimizer):
     for param in model_params:
         # Taken from https://pytorch.org/docs/stable/_modules/torch/optim/optimizer.html#Optimizer.add_param_group
-        if param.opt_grad(optimizer) is not None: #param.grad is not None:
+        #if param.opt_grad(optimizer) is not None: #param.grad is not None:
             #param.opt_grad(optimizer).detach_()
             #param.opt_grad(optimizer).zero_()
-            optimizer.zero_grad()
-            optimizer.backward(param)
+        optimizer.zero_grad()
+        optimizer.backward(param)
             #param.grad.detach_()
             #param.grad.zero_()
 
