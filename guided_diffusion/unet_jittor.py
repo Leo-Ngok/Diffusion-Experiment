@@ -274,9 +274,10 @@ class ResBlock(TimestepBlock):
         :param emb: an [N x emb_channels] Tensor of timestep embeddings.
         :return: an [N x C x ...] Tensor of outputs.
         """
-        return checkpoint(
-            self._forward, (x, emb), self.parameters(), self.use_checkpoint
-        )
+        #return checkpoint(
+        #    self._forward, (x, emb), self.parameters(), self.use_checkpoint
+        #)
+        return self._forward(x, emb)
 
     def _forward(self, x, emb):
         if self.updown:
@@ -391,9 +392,10 @@ class SDMResBlock(CondTimestepBlock):
         :param emb: an [N x emb_channels] Tensor of timestep embeddings.
         :return: an [N x C x ...] Tensor of outputs.
         """
-        return checkpoint(
-            self._forward, (x, cond, emb), self.parameters(), self.use_checkpoint
-        )
+        #return checkpoint(
+        #    self._forward, (x, cond, emb), self.parameters(), self.use_checkpoint
+        #)
+        return self._forward(x, cond, emb)
 
     def _forward(self, x, cond, emb):
         if self.updown:
