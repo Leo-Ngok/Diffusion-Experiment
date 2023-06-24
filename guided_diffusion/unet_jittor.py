@@ -282,7 +282,7 @@ class ResBlock(TimestepBlock):
     def _forward(self, x, emb):
         if self.updown:
             in_rest, in_conv = self.in_layers[:-1], self.in_layers[-1]
-            h = layer[0](x)
+            h = in_rest[0](x)
             for layer in in_rest[1:]:
                 h = layer(h)
             #h = in_rest(x)
