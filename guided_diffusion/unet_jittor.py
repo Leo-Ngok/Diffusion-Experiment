@@ -295,7 +295,9 @@ class ResBlock(TimestepBlock):
             out_norm, out_rest = self.out_layers[0], self.out_layers[1:]
             scale, shift = jt.chunk(emb_out, 2, dim=1)
             h = out_norm(h) * (1 + scale) + shift
-            h = out_rest(h)
+            for layer in out_rest:
+                h = layer(h)
+            #h = out_rest(h)
         else:
             h = h + emb_out
             h = self.out_layers(h)
