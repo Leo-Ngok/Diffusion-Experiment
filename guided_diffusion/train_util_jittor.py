@@ -200,7 +200,8 @@ class TrainLoop:
             log_loss_dict(
                 self.diffusion, t, {k: v * weights for k, v in losses.items()}
             )
-            self.mp_trainer.backward(loss)
+            self.opt.backward(loss)
+            #self.mp_trainer.backward(loss)
 
     def _update_ema(self):
         for rate, params in zip(self.ema_rate, self.ema_params):
