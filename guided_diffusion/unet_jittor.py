@@ -413,7 +413,7 @@ class SDMResBlock(CondTimestepBlock):
         else:
             h = self.in_norm(x, cond)
             h = self.in_layers(h)
-        emb_out = self.emb_layers(emb).cast(h.dtype())
+        emb_out = self.emb_layers(emb)#.cast(h.dtype())
         while len(emb_out.shape) < len(h.shape):
             emb_out = emb_out[..., None]
         if self.use_scale_shift_norm:
