@@ -406,7 +406,9 @@ class SDMResBlock(CondTimestepBlock):
         if self.updown:
             in_rest, in_conv = self.in_layers[:-1], self.in_layers[-1]
             h = self.in_norm(x, cond)
-            h = in_rest(h)
+            for layer in in_rest:
+                h = layer(h)
+            #h = in_rest(h)
             h = self.h_upd(h)
             x = self.x_upd(x)
             h = in_conv(h)
@@ -1029,7 +1031,8 @@ class EncoderUNetModel(nn.Module):
         emb = self.time_embed(timestep_embedding(timesteps, self.model_channels))
 
         results:list[jt.Var] = []
-        h = x.cast(self.dtype)
+        #h = x.cast(self.dtype)
+        h = x
         for module in self.input_blocks:
             h:jt.Var = module(h, emb)
             if self.pool.startswith("spatial"):
