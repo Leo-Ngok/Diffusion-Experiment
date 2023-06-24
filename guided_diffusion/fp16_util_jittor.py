@@ -172,8 +172,8 @@ class MixedPrecisionTrainer:
             self.master_params = make_master_params(self.param_groups_and_shapes)
             self.model.convert_to_fp16()'''
 
-    def zero_grad(self):
-        zero_grad(self.model_params)
+    def zero_grad(self, opt):
+        zero_grad(self.model_params, opt)
 
     def backward(self, loss: jt.Var):
         '''if self.use_fp16:
