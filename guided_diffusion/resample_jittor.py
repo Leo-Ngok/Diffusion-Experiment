@@ -51,9 +51,9 @@ class ScheduleSampler(ABC):
         w = self.weights()
         p = w / np.sum(w)
         indices_np = np.random.choice(len(p), size=(batch_size,), p=p)
-        indices = jt.from_numpy(indices_np).long().to(device)
+        indices = jt.array(indices_np).long()#.to(device)
         weights_np = 1 / (len(p) * p[indices_np])
-        weights = jt.from_numpy(weights_np).float().to(device)
+        weights = jt.array(weights_np).float()#.to(device)
         return indices, weights
 
 
