@@ -121,8 +121,6 @@ class _WrappedModel:
         self.original_num_steps = original_num_steps
 
     def __call__(self, x, ts, **kwargs):
-        import torch
-        torch.tensor()
         map_tensor = jt.Var(self.timestep_map, dtype=ts.dtype)
         new_ts = map_tensor[ts]
         if self.rescale_timesteps:
