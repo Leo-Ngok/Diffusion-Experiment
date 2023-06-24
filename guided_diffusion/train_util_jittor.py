@@ -252,8 +252,8 @@ class TrainLoop:
         bs, _, h, w = label_map.size()
         nc = self.num_classes
         jt.zeros((bs, nc, h, w))
-        input_label =jt.zeros((bs, nc, h, w)) # jt.float(bs, nc, h, w).zero_() #FloatTensor(bs, nc, h, w).zero_()
-        input_semantics = input_label.scatter_(1, label_map, 1.0)
+        input_label:jt.Var =jt.zeros((bs, nc, h, w)) # jt.float(bs, nc, h, w).zero_() #FloatTensor(bs, nc, h, w).zero_()
+        input_semantics = input_label.scatter_(1, label_map, jt.ones((1)))
 
         # concatenate instance map if it exists
         if 'instance' in data:
