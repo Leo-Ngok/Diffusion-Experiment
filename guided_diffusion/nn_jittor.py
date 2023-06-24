@@ -16,7 +16,7 @@ class SiLU(nn.Module):
 
 class GroupNorm32(nn.GroupNorm):
     def execute(self, x):
-        return super().execute(x.float()).type(x.dtype)
+        return super().execute(x.float())#.type(x.dtype)
 
 
 def conv_nd(dims, *args, **kwargs):
