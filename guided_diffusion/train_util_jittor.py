@@ -144,8 +144,10 @@ class TrainLoop:
             or self.step + self.resume_step < self.lr_anneal_steps
         ):
             batch, cond = next(self.data)
+            print("chkpt 147")
             cond = self.preprocess_input(cond)
             self.run_step(batch, cond)
+            print("chkpt 150")
             if self.step % self.log_interval == 0:
                 logger.dumpkvs()
             if self.step % self.save_interval == 0:
