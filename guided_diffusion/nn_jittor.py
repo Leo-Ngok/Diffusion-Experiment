@@ -10,13 +10,13 @@ from typing import Callable
 
 # PyTorch 1.7 has SiLU, but we support PyTorch 1.5.
 class SiLU(nn.Module):
-    def forward(self, x):
+    def execute(self, x):
         return x * jt.sigmoid(x)
 
 
 class GroupNorm32(nn.GroupNorm):
-    def forward(self, x):
-        return super().forward(x.float()).type(x.dtype)
+    def execute(self, x):
+        return super().execute(x.float()).type(x.dtype)
 
 
 def conv_nd(dims, *args, **kwargs):
@@ -141,7 +141,7 @@ def checkpoint(func:Callable, inputs, params, flag):
 
 class CheckpointFunction(jt.Function):
     @staticmethod
-    def forward(ctx, run_function, length, *args):
+    def execute(ctx, run_function, length, *args):
         ctx.run_function = run_function
         ctx.input_tensors = list(args[:length])
         ctx.input_params = list(args[length:])
