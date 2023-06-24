@@ -171,6 +171,7 @@ class TrainLoop:
     def forward_backward(self, batch, cond):
         self.mp_trainer.zero_grad(self.opt)
         for i in range(0, batch.shape[0], self.microbatch):
+            print('forward-backward: 174')
             micro = batch[i : i + self.microbatch]#.to(dist_util.dev())
             micro_cond = {
                 k: v[i : i + self.microbatch]#.to(dist_util.dev())
@@ -192,7 +193,8 @@ class TrainLoop:
             else:
                 with self.ddp_model.no_sync():
                     losses = compute_losses()
-
+            
+            print('forward-backward: 197')
             if isinstance(self.schedule_sampler, LossAwareSampler):
                 self.schedule_sampler.update_with_local_losses(
                     t, losses["loss"].detach()
