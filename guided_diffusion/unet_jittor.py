@@ -43,9 +43,9 @@ class AttentionPool2d(nn.Module):
         self.attention = QKVAttention(self.num_heads)
 
     def execute(self, x:jt.Var):
-        #b, c, *_spatial = x.shape()
-        b = jt.size(x, 0) # x.shape()[0]
-        c = jt.size(x, 1) #x.shape()[1]
+        b, c, *_spatial = x.shape
+        #b = jt.size(x, 0) # x.shape()[0]
+        #c = jt.size(x, 1) #x.shape()[1]
         x = x.reshape(b, c, -1)  # NC(HW)
         x = jt.concat([x.mean(dim=-1, keepdim=True), x], dim=-1)  # NC(HW+1)
         x = x + self.positional_embedding[None, :, :].to(x.dtype)  # NC(HW+1)
@@ -1040,5 +1040,5 @@ class EncoderUNetModel(nn.Module):
             h = jt.concat(results, -1) #axis=-1)
             return self.out(h)
         else:
-            h = h.cast(x.dtype())
+            #h = h.cast(x.dtype())
             return self.out(h)
